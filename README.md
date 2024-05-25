@@ -29,13 +29,13 @@ This launches the NestJS server with hot-reloading enabled, and wiil open in: ht
   1. **Access Swaggerhub:**
     ```bash
       npm run start:swagger
-     ```
+    ```
   2. **Open Browser:** Navigate to http://127.0.0.1:37810/api-docs in your web browser to interact with the Swagger documentation and test your endpoints.
 
 5. **Testing:**
   ```bash
       npm run test
-     ```
+  ```
 
 # File Structure
    - project_root
