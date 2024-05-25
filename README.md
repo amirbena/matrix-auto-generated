@@ -67,7 +67,7 @@ This launches the NestJS server with hot-reloading enabled, and wiil open in: ht
     - tsconfig.json
     - package.json
     - package-lock.json
-    - Matrix.postman_collection.json **Postman Collection for import in postman and use it**
+    - Matrix.postman_collection.json (Postman collection Using)
     - nestia.config.ts
     - LICENSE
     - gitignore
