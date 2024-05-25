@@ -26,11 +26,11 @@ This launches the NestJS server with hot-reloading enabled, and wiil open in: ht
 
 4. **Start Swagger UI:**
   Auto Generated from Nestia
-  1. **Access Swaggerhub:**
+   - **Access Swaggerhub:**
     ```bash
       npm run start:swagger
     ```
-  2. **Open Browser:** Navigate to http://127.0.0.1:37810/api-docs in your web browser to interact with the Swagger documentation and test your endpoints.
+   - **Open Browser:** Navigate to http://127.0.0.1:37810/api-docs in your web browser to interact with the Swagger documentation and test your endpoints.
 
 5. **Testing:**
   ```bash
@@ -38,7 +38,9 @@ This launches the NestJS server with hot-reloading enabled, and wiil open in: ht
   ```
 
 # File Structure
-   - project_root
+   - .github\workflows (github actions)
+      - build.yml
+   - .vscode
    - node_modules
    - lib (built Javascript files to ```npm run server```)
    - packages (Auto Genereated from Swagger)
@@ -73,6 +75,6 @@ This launches the NestJS server with hot-reloading enabled, and wiil open in: ht
 # Modify code: 
   Add your custom business logic to the controllers, services, and models within the src directory.
 # Update Swagger: 
-     Make changes to packages/api/swagger.json to reflect updates to your API.
+  Make changes to packages/api/swagger.json to reflect updates to your API.
 # Regenerate code: 
-   Use Nestia to regenerate the NestJS codebase from the updated swagger.json.
+  Use Nestia to regenerate the NestJS codebase from the updated swagger.json.
