@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "558f548c-fb8e-41fa-8285-3af45e6d87fd",
+		"name": "Matrix",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29720991"
+	},
+	"item": [
+		{
+			"name": "Create Token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:37001/calculator/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "37001",
+					"path": [
+						"calculator",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Calculate Sign",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sign-header",
+						"value": "*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"number1\": 10,\r\n    \"number2\": 600\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:37001/calculator",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "37001",
+					"path": [
+						"calculator"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

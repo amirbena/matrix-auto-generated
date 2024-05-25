@@ -1,6 +1,7 @@
 # NestJS Project with Swagger Integration
 
 This NestJS project leverages Nestia's integration to streamline backend API development from a Swagger (`swagger.json`) specification. This approach simplifies the design process and ensures consistency between your API documentation and implementation.
+Using https://nestia.io/docs/migrate/ to migrate this project **Without Nest CLI Installation**
 
 
 ## Getting Started
@@ -66,6 +67,7 @@ This launches the NestJS server with hot-reloading enabled, and wiil open in: ht
     - tsconfig.json
     - package.json
     - package-lock.json
+    - Matrix.postman_collection.json **Postman Collection for import in postman and use it**
     - nestia.config.ts
     - LICENSE
     - gitignore
