@@ -3,6 +3,10 @@
 This NestJS project leverages Nestia's integration to streamline backend API development from a Swagger (`swagger.json`) specification. This approach simplifies the design process and ensures consistency between your API documentation and implementation.
 Using https://nestia.io/docs/migrate/ to migrate this project **Without Nest CLI Installation**
 
+## Which Comamnd use to initiallize this Package 
+  ```bash
+    npx @nestia/migrate --mode nest --input swagger.json --output calculation --simulate false --e2e false
+  ```
 
 ## Getting Started
 
