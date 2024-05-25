@@ -1,0 +1,102 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "http://localhost:37001",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "version": "0.1.0",
+    "title": "calculation",
+    "description": "Starter kit of Nestia",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "paths": {
+    "/calculator": {
+      "post": {
+        "tags": [],
+        "parameters": [
+          {
+            "name": "sign-header",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalculationInfo"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalculationInfoResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/calculator/token": {
+      "get": {
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CalculationInfo": {
+        "type": "object",
+        "properties": {
+          "number1": {
+            "type": "number"
+          },
+          "number2": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "number1",
+          "number2"
+        ]
+      },
+      "CalculationInfoResult": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number",
+            "format": "double",
+            "example": 3
+          }
+        },
+        "required": [
+          "result"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "x-samchon-emended": true
+}
