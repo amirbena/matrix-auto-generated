@@ -11,14 +11,13 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { TOKEN_BODY_CONTENT, TOKEN_EXPIRE_TIME, AUTH_COOKIE, COOKIE_EXPIRE_TIME, CREATE_TOKEN_SUCCESS_MESSAGE, DIVIDE_BY_ZERO, SIGN_HEADER_INVALID_EXPECTION, SIGN_HEADER_EMPTY, TOKEN_KEY } from '../constants';
 import { Response } from 'express';
 import { CalculationInfo } from '../api/structures/CalculationInfo';
 import { CalculationInfoResult } from '../api/structures/CalculationInfoResult';
 import { TokenBody } from '../api/structures/TokenBody';
-import { MyGlobal } from '../MyGlobal';
 
 
 @Injectable()
@@ -29,7 +28,8 @@ export class CalculatorService {
 
   public calculation(signHeader: string, calculationInfo: CalculationInfo): CalculationInfoResult {
     const { number1, number2 } = calculationInfo;
-    if (!signHeader) throw new NotFoundException(SIGN_HEADER_EMPTY)
+    if (!signHeader) throw new NotFoundException(SIGN_HEADER_EMPTY) // Using for UT And improve code coverage, SignGuard check this
+
     const operations: Record<string, () => number> = {
       "+": () => number1 + number2,
       "*": () => number1 * number2,
@@ -41,15 +41,19 @@ export class CalculatorService {
         }
         return number1 / number2;
       },
+      "%": () => number1 % number2,
       "&": () => number1 & number2,
       "|": () => number1 | number2
     }
-    const func = operations[signHeader];
+    const func = operations[signHeader]; //Check which operation included
     if (!func) {
-      throw new ConflictException(SIGN_HEADER_INVALID_EXPECTION);
+      throw new ConflictException(SIGN_HEADER_INVALID_EXPECTION); // Using for UT And improve code coverage, SignGuard check this
     }
-    const result = operations[signHeader]();
-    if (isNaN(result)) throw new ConflictException(DIVIDE_BY_ZERO);
+    const result = func();
+    if (isNaN(result)) {
+      Logger.error(`CalculatorService->calculation() got 409 error because divide or modulo by zero`);
+      throw new ConflictException(DIVIDE_BY_ZERO);
+    }
     return { result };
 
   }
@@ -58,14 +62,18 @@ export class CalculatorService {
     try {
       const tokenBody: TokenBody = { param: TOKEN_BODY_CONTENT };
       const token = await this.jwtService.signAsync(tokenBody, { secret: TOKEN_KEY, expiresIn: TOKEN_EXPIRE_TIME });
+      Logger.log(`CalculatorService->createToken() creates Token: ${token}`)
       res.cookie(AUTH_COOKIE, token, {
         httpOnly: true,
         secure: true,
         maxAge: COOKIE_EXPIRE_TIME
-      })
+      }) // Creates Cookie by Max Age
+      Logger.log(`CalculatorService->createToken() put token: ${token}, in ${AUTH_COOKIE} Cookie`)
       res.send(CREATE_TOKEN_SUCCESS_MESSAGE);
     } catch (error) {
-      throw new InternalServerErrorException((error as Error).message);
+      const { message: errorMessage } = error as Error;
+      Logger.error(`CalculatorService->createToken() got unexpected Error: ${errorMessage}`)
+      throw new InternalServerErrorException(errorMessage);
     }
 
   }

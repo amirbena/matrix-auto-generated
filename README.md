@@ -27,7 +27,7 @@ Using https://nestia.io/docs/migrate/ to migrate this project **Without Nest CLI
   ```bash
    npm run start:dev
   ```
-This launches the NestJS server with hot-reloading enabled, and wiil open in: http://localhost:37001/
+This launches the NestJS server, and wiil open in: http://localhost:37001/
 
 4. **Start Swagger UI:**
   Auto Generated from Nestia
@@ -65,6 +65,7 @@ This launches the NestJS server with hot-reloading enabled, and wiil open in: ht
         - executable
         - services (Tests included)
         - sign (Sign Guard)
+        - Utils (general Utils for application)
         - MyBackend.ts (start server & swagger)
         - MyModule.ts (Module)
    - Readme.md

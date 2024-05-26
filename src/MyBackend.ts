@@ -1,4 +1,4 @@
-import { INestApplication } from "@nestjs/common";
+import { INestApplication, Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { MyModule } from "./MyModule";
 import * as cookieParser from "cookie-parser";
@@ -12,12 +12,12 @@ export class MyBackend {
     // OPEN THE BACKEND SERVER
     //----
     // MOUNT CONTROLLERS
-    this.application_ = await NestFactory.create(MyModule, { logger: false });
+    this.application_ = await NestFactory.create(MyModule);
     this.application_.use(cookieParser());
 
     // DO OPEN
     this.application_.enableCors();
-    await this.application_.listen(PORT, "0.0.0.0", () => console.log(`listens to ${PORT}`));
+    await this.application_.listen(PORT, "0.0.0.0", () => Logger.log(`listens to ${PORT}`));
 
     //----
     // POST-PROCESSES

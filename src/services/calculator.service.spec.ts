@@ -1,6 +1,6 @@
 import { JwtModule } from "@nestjs/jwt";
 import { CalculatorService } from "./calculator.service";
-import { ConflictException,  HttpStatus, NotFoundException } from "@nestjs/common";
+import { ConflictException, HttpStatus, NotFoundException } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Response } from "express";
 import { CalculationInfoResult } from "../api/structures/CalculationInfoResult";
@@ -83,10 +83,31 @@ describe('Calculator Service', () => {
             expect(testResult).toStrictEqual({ result: expectedResult })
             expect(testResult.result).toBe(expectedResult)
         })
+        it("should return result of  modulo between 2 numbers", () => {
+            number1 = 2;
+            number2 = 4;
+            signHeader = "%";
+            expectedResult = number1 % number2;
+            testResult = calculatorService.calculation(signHeader, { number1, number2 });
+            expect(testResult).toStrictEqual({ result: expectedResult })
+            expect(testResult.result).toBe(expectedResult)
+        })
         it("should throw  ConflictException of division between 2 numbers that second number is zero", async () => {
             number1 = 2;
             number2 = 0;
             signHeader = "/";
+            try {
+                calculatorService.calculation(signHeader, { number1, number2 })
+            } catch (error) {
+                expect(error).toBeInstanceOf(ConflictException);
+                expect((error as ConflictException).message).toBe(DIVIDE_BY_ZERO);
+            }
+
+        })
+        it("should throw  ConflictException of modulo between 2 numbers that second number is zero", async () => {
+            number1 = 2;
+            number2 = 0;
+            signHeader = "%";
             try {
                 calculatorService.calculation(signHeader, { number1, number2 })
             } catch (error) {
